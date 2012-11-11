@@ -1,0 +1,29 @@
+Environment: OpenCV 2.x
+Source Code are stored in UTF8
+By WZK
+
+1.Install OpenCV Environment
+for *nix:
+	install opencv,opencv-dev via your package manager
+for Windows:
+	see the OpenCV wiki
+
+2.Compile the source code:
+	for *nix:[Recommand]
+		install cmake via your package manager
+		run the following command:
+			cmake . (the source code and CMakeLists.txt are in the directory)
+			make
+		FaceDetection is the exe file
+	for Windows:
+		(a) Using CMake and Make(提供很好的跨平台移植性)[Recommand]
+			Install CMake & GNU Make & GCC tool chains.
+			in the command line(in the source code directory):
+				cmake CMakeLists.txt
+				make
+			FaceDetection.exe is the exe file
+		(b) Compile it directly
+			g++ FaceDetection.cpp BasicImage.cpp (-l...) -o FaceDetection
+			Or you can use VS to compile the program.
+			Please consult the OpenCV wiki to see how to link OpenCV library to the program
+				
