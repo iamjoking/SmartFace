@@ -1,7 +1,7 @@
 /**
  * 
  */
-package command;
+package common.util.command;
 
 /**
  * @author Momo
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import logging.Logger;
+import common.util.logging.Logger;
 
 public class ExecCommand {
 	private StringBuffer resultBuffer;

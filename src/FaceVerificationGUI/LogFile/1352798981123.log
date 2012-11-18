@@ -1,0 +1,7 @@
+2         
+[2012-11-13 17:26:24]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG0
+
+[2012-11-13 17:29:40]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output -n 123 -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG0
+

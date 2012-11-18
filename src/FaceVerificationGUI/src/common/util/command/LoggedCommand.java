@@ -1,15 +1,15 @@
 /**
  * 
  */
-package command;
+package common.util.command;
 
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import logging.LogFactory;
-import logging.Logger;
+import common.util.logging.LogFactory;
+import common.util.logging.Logger;
 
 /**
  * @author Momo
