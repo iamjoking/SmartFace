@@ -30,8 +30,27 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <string>
 using namespace std;
 using namespace cv;
+
+/* Split string "str" with string "delim".
+ */
+vector<string> splitstring (const string &str, const string &delim) {
+	vector<string> ret;
+	int current = 0, end = str.size(), width = delim.size();
+	string::size_type result;
+	while (current < end) {
+		result = str.find(delim,current);
+		if (result == string::npos)
+			result = end;
+		ret.push_back(str.substr(current,result - current));
+		current = result + width;
+	}
+	return ret;
+}
+
 
 /**
  * 检测对象
@@ -39,7 +58,7 @@ using namespace cv;
  * @param image 输入图像文件
  * @return 检测到的对象区域
  * */
-vector<Rect> DetectObjectUsingCascadeClassifier(String classifierFile, cv::Mat image)
+vector<Rect> DetectObjectUsingCascadeClassifier(string classifierFile, cv::Mat image)
 {
 	CascadeClassifier faceDetect;
 	vector<Rect> result;
@@ -56,9 +75,9 @@ vector<Rect> DetectObjectUsingCascadeClassifier(String classifierFile, cv::Mat i
 	return result;
 }
 
-String face_cascade_name = "haarcascade_frontalface_alt.xml";
+string face_cascade_name = "haarcascade_frontalface_alt.xml";
 
-void saveSubImage(Mat image,Rect mask,String path)
+void saveSubImage(Mat image,Rect mask,string path)
 {
 	Range rowRange(mask.y,mask.y + mask.width);
 	Range colRange(mask.x,mask.x + mask.height);
@@ -68,10 +87,10 @@ void saveSubImage(Mat image,Rect mask,String path)
 
 struct ConfigurationInfo
 {
-	String inputImagePath;
-	String outputImageDirectory;
-	String fileExtension;
-	String outputInfoFile;
+	string inputImagePath;
+	string outputImageDirectory;
+	string fileExtension;
+	string outputInfoFile;
 	bool isGray;
 	bool isEqualized;
 
@@ -104,7 +123,7 @@ ConfigurationInfo parseArguments(int argc,char** argv)
 					config.inputImagePath = argv[i];
 					break;
 				case 'o':
-					//output file path
+					//output face location file directory 
 					i++;
 					assert(i < argc);
 					config.outputInfoFile = argv[i];
@@ -146,39 +165,61 @@ int main(int argc,char** argv)
 	} else
 		config = parseArguments(argc, argv);
 
-
-	BasicImage img(config.inputImagePath);
-	BasicImage originImage = img;
-	BasicImage& outputImage = (config.isGray?img:originImage);
-	img.color2Gray();
-	if(config.isEqualized)
-		img.equalizeHist();
-
-	//可以调整参数来改善效果
-	vector<Rect> result = DetectObjectUsingCascadeClassifier(face_cascade_name,img);
-
-	vector<Rect>::const_iterator it = result.begin();
-	int count = 0;
-	String faceImagePath = config.outputImageDirectory + "/face";
-	String imageExtension = "." + config.fileExtension;
-	char numberString[100];
 	
-	ofstream fout;
-	if(config.outputInfoFile.length() > 0)
-	{
-		fout.open(config.outputInfoFile.c_str());
-	}
+	vector<string> imagePaths;
+	imagePaths = splitstring(config.inputImagePath,string(";"));
+	vector<string>::const_iterator cit = imagePaths.begin();
+	
+	for(;cit != imagePaths.end(); cit++){
+		/* We need to deal with the situation that the inputImagePath contains many image files. *cit is a image file */
+		string currentImageFile = *cit;
+		string currentImageName;/* filename without extision name */
+		currentImageName = currentImageFile.substr(0,currentImageFile.find_last_of('.'));
+		if(currentImageName.find('/') == string::npos)
+		{
+			/* It is under WINDOWS */
+			currentImageName = currentImageName.substr(currentImageName.find_last_of('\\') + 1);
+		}else
+		{
+			/*  It is under *nix */
+			currentImageName = currentImageName.substr(currentImageName.find_last_of('/') + 1);
+		}
+		BasicImage img(currentImageFile);
+		BasicImage originImage = img;
+		BasicImage& outputImage = (config.isGray?img:originImage);
+		img.color2Gray();
+		if(config.isEqualized)
+			img.equalizeHist();
 
-	ostream& out = (fout.is_open()?fout:cout);
+		//可以调整参数来改善效果
+		vector<Rect> result = DetectObjectUsingCascadeClassifier(face_cascade_name,img);
 
-	out << result.size() << endl;
-	while(it != result.end()){
-		sprintf(numberString,"%d",count);
-		String number(numberString);
-		saveSubImage(outputImage,*it,faceImagePath + number + imageExtension);
-		out << it->x << " " << it->y << " " << it->height << " " << it->width << endl;
-		it++;
-		count++;
+		vector<Rect>::const_iterator it = result.begin();
+		int count = 0;
+		string faceImagePath = config.outputImageDirectory;
+		string imageExtension = "." + config.fileExtension;
+		char numberstring[100];
+	
+
+		ofstream fout;
+		if(config.outputInfoFile.length() > 0)
+		{
+			fout.open(string(config.outputInfoFile + currentImageName + ".pos").c_str());
+		}
+
+		ostream& out = (fout.is_open()?fout:cout);
+
+		out << result.size() << endl;
+		while(it != result.end()){
+			sprintf(numberstring,"%d",count);
+			string number(numberstring);
+			string outputImageFilePath = faceImagePath + currentImageName + "_" + number + imageExtension;
+			saveSubImage(outputImage,*it,outputImageFilePath);
+			out << it->x << " " << it->y << " " << it->height << " " << it->width << endl;
+			cerr << outputImageFilePath << endl;
+			it++;
+			count++;
+		}
 	}
 	return 0;
 }
