@@ -1,0 +1,6 @@
+project( fdetection )
+set(CMAKE_VERBOSE_MAKEFILE ON)
+find_package(OpenCV REQUIRED)
+#add_executable( BasicImage BasicImage.cpp)
+add_executable( FaceDetection FaceDetection.cpp BasicImage.cpp)
+target_link_libraries( FaceDetection ${OpenCV_LIBS} ) 
