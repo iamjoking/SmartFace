@@ -1,7 +1,7 @@
 /**
  * 
  */
-package logging;
+package common.util.logging;
 
 import java.io.BufferedReader;
 import java.io.File;

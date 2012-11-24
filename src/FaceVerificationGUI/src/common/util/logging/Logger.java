@@ -1,10 +1,10 @@
 /**
  * 
  */
-package logging;
+package common.util.logging;
 
 /**
- * @author Momo
+ * @author iamjoking
  *
  */
 public class Logger {
