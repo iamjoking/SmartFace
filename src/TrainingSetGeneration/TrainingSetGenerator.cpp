@@ -26,8 +26,8 @@
 #include <iostream>
 #include <fstream>
 
-#define POS_EXT					".pos"
-#define NEG_EXT					".neg"
+#define POS_EXT					".pos.set"
+#define NEG_EXT					".neg.set"
 #define MAX_FEAVEC_WIDTH		500
 #define MAX_SAMPLES				100000000
 #define max(a,b)				((a) >= (b) ? (a) : (b))
@@ -67,6 +67,15 @@ vector<string> splitString (const string &str, const string &delim) {
 	return ret;
 }
 
+/**
+ *
+ * Partitioning files to the corresponding people
+ * For example, input files are 1_0.jpg,1_1.jpg,2_0.jpg,3_0.jpg
+ * then the function maps the input files into 3 set
+ * person #1:[1_0.jpg,1_1.jpg]
+ * person #2:[2_0.jpg]
+ * person #3:[3_0.jpg]
+ * */
 map<string, vector<string> > partitionItems(vector<string> &strings, string delim) {
 	map<string, vector<string> > ret;
 	vector<string>::iterator itVec = strings.begin();
@@ -297,30 +306,15 @@ void writeSamples(string path, int label,
 	double a[MAX_FEAVEC_WIDTH], b[MAX_FEAVEC_WIDTH];
 	string fileName = (label == 0) ? (path + NEG_EXT) : (path + POS_EXT);
 	ofstream oFile(fileName.c_str(),ios::out);
-	ifstream aFile, bFile;
+
 	vector<string>::iterator itA = first.begin(), itB = second.begin();
+
 	for ( ; itA != first.end(); itA++, itB++) {
-		index = 0;
-		aFile.open((*itA).c_str(),ios::in);
-		bFile.open((*itB).c_str(),ios::in);
-		if (!aFile || !bFile)
-			return ;
-		
-		while (aFile.eof() == 0 && bFile.eof() == 0) {
-			aFile >> a[index]; bFile >> b[index];
-			index++;
-		}
-		aFile.close(); bFile.close();
-		
-		// 组合策略<a1,a2,..an,b1,b2,...,bn>，可替换为<a1*b1,a2*b2,...,an*bn>，
-		// 或<(ai-bi)^2>，或<(ai/bi)>
-		for (i = 0; i < index; i++)
-			oFile << a[i] << " ";
-		
-		for (i = 0; i < index; i++)
-			oFile << b[i] << " ";
-		
-		oFile << endl;
+
+		//Output the filename pair
+		//<fileA,fileB>
+		oFile << *itA << " " << *itB << endl;
+	
 	}
 	
 	oFile.close();
