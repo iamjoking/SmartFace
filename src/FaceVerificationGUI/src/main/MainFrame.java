@@ -18,7 +18,8 @@ public class MainFrame extends JFrame {
 	JTabbedPane jTabbedPane;
 	MessagePane messagePane;
 	ArrayList<File> openedFile = new ArrayList<File>();
-	final static String PROJECT_FILE_EXTENSION = ".proj";
+	public static String VERSION = "1.0";
+	
 	
 	public MainFrame(InitialInformation initInfo) {
 		this.initInfo = initInfo;
@@ -36,13 +37,25 @@ public class MainFrame extends JFrame {
 		// "File" menu
 		JMenu jMenuFile = new JMenu("File");
 		JMenuItem jMenuItemOpen = new JMenuItem("Open");	// "Open" Item.
+		jMenuItemOpen.addActionListener(new OpenActionListener());
 		jMenuItemOpen.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_O, InputEvent.CTRL_MASK)); // Set Accelerator(ctrl + o)
 		JMenuItem jMenuItemNew = new JMenuItem("New");	// "New" Item.
+		jMenuItemNew.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				newFile();
+			}
+		});
 		jMenuItemNew.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_N, InputEvent.CTRL_MASK)); // Set Accelerator(ctrl + n)
 		JMenu jMenuRecentFiles = new JMenu("Recent");		// "Recent Project(s)" sub menu.
 		JMenuItem jMenuItemExit = new JMenuItem("Exit");	// "Exit" Item.
+		jMenuItemExit.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				initInfo.save();
+				System.exit(0);
+			}
+		});
 		jMenuItemExit.setAccelerator(KeyStroke.getKeyStroke(
 			KeyEvent.VK_F4, InputEvent.ALT_MASK)); // Set Accelerator(alt + F4)	
 		jMenuFile.add(jMenuItemOpen);
@@ -79,7 +92,13 @@ public class MainFrame extends JFrame {
 		JMenuItem jMenuItemHelp = new JMenuItem("Help");	// "Help" Item.
 		jMenuItemHelp.setAccelerator(KeyStroke.getKeyStroke(
 					KeyEvent.VK_F1, 0)); // Set Accelerator(F1)
-		JMenuItem jMenuItemAbout = new JMenuItem("About");	// "About" Item.	
+		JMenuItem jMenuItemAbout = new JMenuItem("About");	// "About" Item.
+		jMenuItemAbout.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null,"Copy Right (c) SmartFace Group\nVersion " + VERSION,
+					"About", JOptionPane.INFORMATION_MESSAGE, new ImageIcon("res/pic/logotiny.png"));
+			}
+		});
 		jMenuHelp.add(jMenuItemHelp);
 		jMenuHelp.add(jMenuItemAbout);	
 		
@@ -112,7 +131,7 @@ public class MainFrame extends JFrame {
 		// Draw the start page.
 		JPanel jpStartHere = new JPanel(new BorderLayout());
 		JPanel jpStartPage = new JPanel(new BorderLayout());
-		jpStartPage.add(new JLabel(new ImageIcon("logo.jpg")),BorderLayout.CENTER);
+		jpStartPage.add(new JLabel(new ImageIcon("res/pic/logo.png")),BorderLayout.CENTER);
 		JScrollPane jspStartPage = new JScrollPane(jpStartPage);
 		jpStartHere.add(jspStartPage,BorderLayout.CENTER);
 		jTabbedPane.addTab("Start Here", jpStartHere);
@@ -149,6 +168,7 @@ public class MainFrame extends JFrame {
 		
 		add(mainPanel);
 		setSize(800,500);
+		setLocationRelativeTo(null);
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing (WindowEvent e) {
@@ -166,21 +186,21 @@ public class MainFrame extends JFrame {
 			return -1;
 		}
 		
-		if (!file.getPath().endsWith(PROJECT_FILE_EXTENSION)) {
+		if (!file.getPath().endsWith(Project.PROJECT_FILE_EXTENSION)) {
 			JOptionPane.showMessageDialog(null,
 				"The file \"" + file.getPath() + "\" is not a project file!\nA project file should end with \""
-				+ PROJECT_FILE_EXTENSION + "\".");
+				+ Project.PROJECT_FILE_EXTENSION + "\".");
 			return -1;
 		}
 		
 		initInfo.addRecentFile(file);
 		if (!openedFile.contains(file)) {			
 			openedFile.add(file);
-			jTabbedPane.addTab(file.getPath(), new JPanel());
+			jTabbedPane.addTab(file.getPath(), new ProjectPane(new Project(file)));
 		}
 		jTabbedPane.setSelectedIndex(openedFile.indexOf(file));
 		
-		return 0;
+		return openedFile.indexOf(file);
 	}
 	
 	public void closeFile(int index) {
@@ -189,8 +209,10 @@ public class MainFrame extends JFrame {
 		return ;
 	}
 	
-	public int newFile(File file) {
-		messagePane.append("new a file : " + file.getPath());
+	public int newFile() {
+		messagePane.append("new a file");
+		ProjectPane newProjPane = new ProjectPane(initInfo.getPresentWorkDirectory());
+		openFile(newProjPane.getProject().getProjectFile());
 		return 0;
 	}
 	
@@ -215,7 +237,7 @@ public class MainFrame extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		UIManager.put("Label.font",new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		UIManager.put("Button.font",new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
 		UIManager.put("TextField.font",new Font("Î¢ÈíÑÅºÚ", Font.PLAIN, 12));
@@ -252,6 +274,24 @@ public class MainFrame extends JFrame {
 				new MainFrame(initInfo).setVisible(true);
 			}
 		});
+	}
+	
+	private class OpenActionListener implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JFileChooser openFileChooser = new JFileChooser(initInfo.getPresentWorkDirectory());
+			openFileChooser.setAcceptAllFileFilterUsed(false);
+			openFileChooser.addChoosableFileFilter(new javax.swing.filechooser.FileFilter() {
+				public boolean accept(File f) {
+					return f.isDirectory() | f.getPath().endsWith(Project.PROJECT_FILE_EXTENSION);
+				}
+				public String getDescription() {
+					return "Project File (*.proj)";
+				}
+			});
+			
+			if (openFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+				openFile(openFileChooser.getSelectedFile());
+		}
 	}
 	
 	private class TabbedPaneMouseListener extends MouseAdapter {
