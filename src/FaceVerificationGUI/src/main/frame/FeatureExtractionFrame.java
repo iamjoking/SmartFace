@@ -87,7 +87,8 @@ public class FeatureExtractionFrame extends OptionFrame {
 		JButton jbBuild = new JButton("Build");
 		JButton jbNext = new JButton("Next");
 		JButton jbCancel = new JButton("Cancel");
-		addButton(jbBuild); addButton(jbCancel); addButton(jbNext);
+		JButton jbGenCommand = new JButton("Generate");
+		addButton(jbBuild); addButton(jbCancel); addButton(jbNext); addButton(jbGenCommand);
 		jbBuild.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (!isCovered())
@@ -112,6 +113,19 @@ public class FeatureExtractionFrame extends OptionFrame {
 		jbCancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+			}
+		});
+		
+		jbGenCommand.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame frame = new JFrame("Command String");
+				JTextArea jta = new JTextArea(getSection().getCommandString());
+				jta.setEditable(false);
+				jta.setLineWrap(true);
+				frame.setLayout(new BorderLayout());
+				frame.add(jta,BorderLayout.CENTER);
+				frame.setSize(500,200);
+				setLocationRelativeTo(null);
 			}
 		});
 		
@@ -151,14 +165,6 @@ public class FeatureExtractionFrame extends OptionFrame {
 		LogFactory logFactory = new LogFactory();
 		FeatureExtractionFrame frame = new FeatureExtractionFrame();
 		frame.setVisible(true);
-		JFrame jframe = new JFrame();
-		JTextArea jta = new JTextArea(frame.getSection().getCommandString());
-		jta.setLineWrap(true);
-		jframe.add(jta);
-		jframe.setSize(600,200);
-		jframe.setLocationRelativeTo(null);
-		jframe.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		jframe.setVisible(true);
 	}
 
 
