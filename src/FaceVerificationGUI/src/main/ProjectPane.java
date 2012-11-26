@@ -4,6 +4,7 @@
 
 package main;
 
+import main.frame.*;
 import common.util.*;
 import common.view.*;
 

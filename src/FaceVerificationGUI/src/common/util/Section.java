@@ -129,7 +129,7 @@ public class Section {
 	}
 	
 	public String getIoOptionName(int index) {
-		if (index >= options.size() || index < 0)
+		if (index >= ioOptions.size() || index < 0)
 			return null;
 		Set<String> ioOptionsSet = ioOptions.keySet();
 		Iterator<String> iosIterator = ioOptionsSet.iterator();
@@ -159,6 +159,7 @@ public class Section {
 	
 	public void setIoOption (String option, String value) {
 		value = (value == null ? "" : value);
+		System.out.println("set io option : option = " + option + ", value = " + value);
 		ioOptions.put(option,value);
 	}
 	

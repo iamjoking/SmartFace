@@ -40,9 +40,11 @@ SOURCE_COMMON_VIEW = \
 
 SOURCE_MAIN = \
 	main/InitialInformation.java \
-	main/NewProjectFrame.java \
-	main/FaceDetectionFrame.java \
-	main/FeatureExtractionFrame.java \
+	main/frame/NewProjectFrame.java \
+	main/frame/FaceDetectionFrame.java \
+	main/frame/FeatureExtractionFrame.java \
+	main/frame/TrainingSetGenerationFrame.java \
+	main/frame/SampleCombinationFrame.java \
 	main/ProjectPane.java \
 	main/MainFrame.java \
 
