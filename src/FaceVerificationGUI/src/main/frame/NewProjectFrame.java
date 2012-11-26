@@ -2,8 +2,9 @@
  * @author iamjoking
  */
 
-package main;
+package main.frame;
 
+import main.*;
 import common.view.*;
 import common.util.*;
 
@@ -18,8 +19,9 @@ public class NewProjectFrame extends OptionFrame {
 	JTextField jtfName = new JTextField(30);
 	JTextField jtfPath = new JTextField(30);
 	
-	public NewProjectFrame (String title, String description, Icon icon, final File cwd) {
-		super(title,description,icon);
+	public NewProjectFrame () {
+		super("Create a new project","Enter your project file's name.",
+			new ImageIcon("res/pic/newaproj.png"));
 		
 		int lineHeight = 25;
 		JPanel jpBody = new JPanel(new GridLayout(0,1,10,10));
@@ -30,12 +32,12 @@ public class NewProjectFrame extends OptionFrame {
 		JButton jbBrowse = new JButton("Browse");
 		jbBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser openFileChooser = new JFileChooser(cwd);
+				JFileChooser openFileChooser = new JFileChooser(InitialInformation.getCwd());
 				openFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				
 				if (openFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
 					jtfPath.setText(openFileChooser.getSelectedFile().getPath());
-				}
+			}
 		});
 		jpName.add(jlName);
 		jpName.add(jtfName);
@@ -64,7 +66,7 @@ public class NewProjectFrame extends OptionFrame {
 				} else if (getProjectFile().exists()) {
 					JOptionPane.showMessageDialog(null, "A project with this name already exists.");
 				} else
-					dispose();
+					setVisible(false);
 			}
 		});
 		addButton(jbOk);
@@ -92,8 +94,7 @@ public class NewProjectFrame extends OptionFrame {
 	}
 	
 	public static void main (String[] args) {
-		NewProjectFrame frame = new NewProjectFrame("Create a new project",
-			"Enter your project file's name.", new ImageIcon("res/pic/newaproj.png"),new File("."));
+		NewProjectFrame frame = new NewProjectFrame();
 		frame.setVisible(true);
 		System.out.println("Project path is " + frame.getProjectPath());
 		System.out.println("Project name is " + frame.getProjectName());

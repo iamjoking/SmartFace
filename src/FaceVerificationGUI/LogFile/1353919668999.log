@@ -1,0 +1,41 @@
+3         
+[2012-11-26 16:39:28]	null
+D:\Study\code\GitHub\SmartFace\src\FaceDetection\Debug\FaceDetection.exe -g -e -x jpg -d D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\ -i D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\003A35.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\003A38.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\003A60.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\004A30.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\004A62.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\004A63.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\005A18.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\005A35.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\005A40.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\005A45.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\006A42.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\006A46.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\006A69.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\007A01.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\007A18.JPG;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\007A22.JPG;1
+64 135 317 317
+1
+99 192 289 289
+1
+71 173 289 289
+1
+31 192 324 324
+1
+12 110 336 336
+1
+80 102 235 235
+1
+101 138 248 248
+1
+62 189 275 275
+1
+69 146 283 283
+1
+10 142 271 271
+1
+39 151 295 295
+1
+62 119 285 285
+1
+61 82 232 232
+1
+60 156 270 270
+1
+49 178 267 267
+1
+58 157 255 255
+
+[2012-11-26 16:46:28]	null
+D:\Study\code\GitHub\SmartFace\src\FaceDetection\Debug\FaceDetection.exe -g -e -x jpg -d D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\ -i D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\db\003A35.JPG;1
+64 135 317 317
+
+[2012-11-26 16:47:48]	null
+D:\Study\code\GitHub\SmartFace\bin\lbp.exe -t ri -r 1 -n 8 -m h -d D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\feature\ -i D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\003A35_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\003A38_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\003A60_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\004A30_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\004A62_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\004A63_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\005A18_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\005A35_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\005A40_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\005A45_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\006A42_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\006A46_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\006A69_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\007A01_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\007A18_0.jpg;D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\db\output\007A22_0.jpg;

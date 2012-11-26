@@ -5,6 +5,7 @@
 package main;
 
 import common.util.*;
+import common.util.logging.*;
 import common.view.*;
 
 import javax.swing.*;
@@ -169,7 +170,7 @@ public class MainFrame extends JFrame {
 		add(mainPanel);
 		setSize(800,500);
 		setLocationRelativeTo(null);
-		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing (WindowEvent e) {
 				initInfo.save();
@@ -211,7 +212,7 @@ public class MainFrame extends JFrame {
 	
 	public int newFile() {
 		messagePane.append("new a file");
-		ProjectPane newProjPane = new ProjectPane(initInfo.getPresentWorkDirectory());
+		ProjectPane newProjPane = new ProjectPane();
 		openFile(newProjPane.getProject().getProjectFile());
 		return 0;
 	}
@@ -249,7 +250,7 @@ public class MainFrame extends JFrame {
 	 */
 	private static InitialInformation initial() {
 		setGUI();
-		//LogFactory logFactory = new LogFactory();
+		LogFactory logFactory = new LogFactory();
 		InitialInformation ret = new InitialInformation();
 		return ret;
 	}

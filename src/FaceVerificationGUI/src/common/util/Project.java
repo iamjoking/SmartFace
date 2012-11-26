@@ -77,6 +77,24 @@ public class Project {
 		return sections.get(index);
 	}
 	
+	/** Set the index-th section in sections, and erase the sections behind.
+	 */
+	public boolean setSection(int index, Section section) {
+		try {
+			sections.set(index, section);
+		} catch (IndexOutOfBoundsException e) {
+			if (index == sections.size())
+				sections.add(section);
+			else
+				return false;
+		}
+		
+		for (int i = sections.size() - 1; i > index; i--)
+			sections.remove(i);
+		
+		return true;
+	}
+	
 	public static boolean isProjectFile(File file) {
 		return file.exists() && file.isFile() && file.getPath().endsWith(PROJECT_FILE_EXTENSION);
 	}
