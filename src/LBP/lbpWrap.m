@@ -24,18 +24,46 @@
 %                   'h' or 'hist'  to get a histogram of LBP codes
 %                   'nh'           to get a normalized histogram
 %   Example:
-%           lbpWrap 'input\1.JPG;input\2.JPG' 'output\' '1' '8' 'ri' 'h'
+%           lbpWrap -i 'input\1.JPG;input\2.JPG' -d 'output\' -r 1 -s 8 -t ri -m
+%                   h
 %       Now 'output\1.fea' and 'output\2.fea' contain the rotation-invariant
 %       uniform LBP histogram for 1.JPG and 2.JPG.
 %
 %   See also lbp, getmapping.
 
-function lbpWrap(imgPaths,outputPath,radiusString,samplesString,mappingtypeString,modeString)
+function lbpWrap(varargin)
+
+if (length(varargin) == 0)
+	fprintf('lbp -i InputImages -d OutputDirectory -r SamplingRadius -n SamplingNumbers -t MappingType(ri/u2/riu2) -m Mode(h/hist/nh)\n');
+    return ;
+end
+
+inputflag = varargin(1:2:11);
+inputstring = varargin(2:2:12);
+for i = 1:6
+    switch inputflag{i}
+        case '-i'
+            imgPaths = inputstring{i};
+        case '-d'
+            outputPath = inputstring{i};
+        case '-r'
+            radiusString = inputstring{i};
+        case '-n'
+            samplesString = inputstring{i};
+		case '-t'
+			mappingtypeString = inputstring{i};
+		case '-m'
+			modeString = inputstring{i};
+    end
+end
 
 % Some hiden arguments
 extension = '.fea';
 
 % Invert input arguments from string to the wanted.
+if (imgPaths(length(imgPaths)) == ';')
+    imgPaths = imgPaths(1:length(imgPaths) - 1);
+end
 imgsPath = regexp(imgPaths,';','split');
 imgsPath = char(imgsPath);
 radius = str2num(radiusString);
