@@ -1,4 +1,4 @@
-CXX_FLAG= -Wall -O2
+CXX_FLAG= -Wall -g 
 
 All: TrainingSetGeneration FeatureCombiner
 

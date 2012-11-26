@@ -23,6 +23,7 @@ public class ClassifierTrainingFrame extends OptionFrame {
 	JTextField jtfInputPos = new JTextField(30);
 	JTextField jtfInputNeg = new JTextField(30);
 	JTextField jtfOutput = new JTextField(30);
+	JTextField jtfName = new JTextField(30);
 	JComboBox jcbbProgram = new JComboBox();
 	OptionPane pOptionPane;
 	
@@ -34,15 +35,8 @@ public class ClassifierTrainingFrame extends OptionFrame {
 		jbInputPos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser openFileChooser = new JFileChooser(InitialInformation.getCwd());
-				openFileChooser.setMultiSelectionEnabled(true);
 				if (openFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					File[] files = openFileChooser.getSelectedFiles();
-					StringBuffer sBuffer = new StringBuffer();
-					for (int i = 0; i < files.length; i++) {
-						sBuffer.append(files[i].getAbsolutePath() + 
-								System.getProperty("path.separator"));
-					}
-					jtfInputPos.setText(sBuffer.toString());
+					jtfInputPos.setText(openFileChooser.getSelectedFile().getAbsolutePath());
 				}
 			}
 		});
@@ -52,15 +46,8 @@ public class ClassifierTrainingFrame extends OptionFrame {
 		jbInputNeg.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser openFileChooser = new JFileChooser(InitialInformation.getCwd());
-				openFileChooser.setMultiSelectionEnabled(true);
 				if (openFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-					File[] files = openFileChooser.getSelectedFiles();
-					StringBuffer sBuffer = new StringBuffer();
-					for (int i = 0; i < files.length; i++) {
-						sBuffer.append(files[i].getAbsolutePath() + 
-								System.getProperty("path.separator"));
-					}
-					jtfInputNeg.setText(sBuffer.toString());
+					jtfInputNeg.setText(openFileChooser.getSelectedFile().getAbsolutePath());
 				}
 			}
 		});
@@ -77,7 +64,8 @@ public class ClassifierTrainingFrame extends OptionFrame {
 			}
 		});
 		
-		ioPane.add(jpInputPos); ioPane.add(jpInputNeg); ioPane.add(jpOutput);
+		JPanel jpOutputName = OptionFrame.optionItem("Model file name :", jtfName);
+		ioPane.add(jpInputPos); ioPane.add(jpInputNeg); ioPane.add(jpOutput); ioPane.add(jpOutputName);
 		addTitledOptionPane("IO",ioPane);
 		
 		ChainPanel jpOptions = new ChainPanel();
@@ -158,6 +146,7 @@ public class ClassifierTrainingFrame extends OptionFrame {
 		if (jtfInputPos.getText().equals("") ||
 			jtfInputNeg.getText().equals("") ||
 			jtfOutput.getText().equals("") ||
+			jtfName.getText().equals("") ||
 			jcbbProgram.getSelectedItem().toString().equals("")) {
 			section.setCovered(false);
 			return false;
@@ -168,12 +157,13 @@ public class ClassifierTrainingFrame extends OptionFrame {
 	private void setSection() {
 		section.setIoOption("p",jtfInputPos.getText());
 		section.setIoOption("n",jtfInputNeg.getText());
-		section.setIoOption("o",jtfOutput.getText() + System.getProperty("file.separator"));
+		section.setIoOption("o",jtfOutput.getText() + System.getProperty("file.separator") + jtfName.getText());
 
 		if (jcbbProgram.getSelectedIndex() >= 0)
 			section.setHandler(handlers[jcbbProgram.getSelectedIndex()]);
 		else
 			section.setHandler(jcbbProgram.getSelectedItem().toString());
+
 		for (int i = 0; i < pOptionPane.numOfOptions(); i++) {
 			section.setOption(pOptionPane.getOptionName(i),pOptionPane.getOptionValue(i));
 		}

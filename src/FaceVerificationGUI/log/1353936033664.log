@@ -1,0 +1,51 @@
+8         
+[2012-11-26 19:54:56]	null
+D:\Study\code\GitHub\SmartFace\bin\FeatureCombiner.exe -d D:\Study\code\Java\fvaa\db\sc\ -i D:\Study\code\Java\fvaa\db\tsg\test.neg.set;D:\Study\code\Java\fvaa\db\tsg\test.pos.set;D:\Study\code\Java\fvaa\db\sc\/test.neg.set
+D:\Study\code\Java\fvaa\db\sc\/test.pos.set
+
+[2012-11-26 19:56:17]	null
+D:\Study\code\GitHub\SmartFace\bin\adaboost_train_wrap.exe -h 20 -p D:\Study\code\Java\fvaa\db\sc\test.pos.set -n D:\Study\code\Java\fvaa\db\sc\test.neg.set -o D:\Study\code\Java\fvaa\db\model\model
+[2012-11-26 20:58:34]	null
+D:\Study\code\GitHub\SmartFace\src\FaceDetection\Debug\FaceDetection.exe -g -e -x jpg -d D:\Study\code\Java\fvaa\db\output\ -i D:\Study\code\Java\fvaa\db\db\003A35.JPG;D:\Study\code\Java\fvaa\db\db\003A38.JPG;D:\Study\code\Java\fvaa\db\db\003A47.JPG;D:\Study\code\Java\fvaa\db\db\004A30.jpg;D:\Study\code\Java\fvaa\db\db\004A37.JPG;D:\Study\code\Java\fvaa\db\db\004A40.jpg;D:\Study\code\Java\fvaa\db\db\004A48.jpg;D:\Study\code\Java\fvaa\db\db\005A48.JPG;D:\Study\code\Java\fvaa\db\db\005A49.JPG;D:\Study\code\Java\fvaa\db\db\005A52.JPG;D:\Study\code\Java\fvaa\db\db\005A61.JPG;D:\Study\code\Java\fvaa\db\db\006A24.JPG;D:\Study\code\Java\fvaa\db\db\006A28.JPG;D:\Study\code\Java\fvaa\db\db\006A31.JPG;1
+64 135 317 317
+1
+99 192 289 289
+1
+64 122 280 280
+1
+31 192 324 324
+1
+40 138 320 320
+1
+68 152 385 385
+1
+54 175 379 379
+1
+81 147 283 283
+1
+100 150 258 258
+1
+32 142 334 334
+1
+62 149 314 314
+1
+57 143 241 241
+1
+47 169 307 307
+1
+40 140 262 262
+
+[2012-11-26 21:14:05]	null
+D:\Study\code\GitHub\SmartFace\bin\lbp.exe -t u2 -r 1 -n 8 -m h -d D:\Study\code\Java\fvaa\db\feature\ -i D:\Study\code\Java\fvaa\db\feature\003A35_0.fea;D:\Study\code\Java\fvaa\db\feature\003A38_0.fea;D:\Study\code\Java\fvaa\db\feature\003A47_0.fea;D:\Study\code\Java\fvaa\db\feature\004A30_0.fea;D:\Study\code\Java\fvaa\db\feature\004A37_0.fea;D:\Study\code\Java\fvaa\db\feature\004A40_0.fea;D:\Study\code\Java\fvaa\db\feature\004A48_0.fea;D:\Study\code\Java\fvaa\db\feature\005A48_0.fea;D:\Study\code\Java\fvaa\db\feature\005A49_0.fea;D:\Study\code\Java\fvaa\db\feature\005A52_0.fea;D:\Study\code\Java\fvaa\db\feature\005A61_0.fea;D:\Study\code\Java\fvaa\db\feature\006A24_0.fea;D:\Study\code\Java\fvaa\db\feature\006A28_0.fea;D:\Study\code\Java\fvaa\db\feature\006A31_0.fea;
+[2012-11-26 21:14:34]	null
+D:\Study\code\GitHub\SmartFace\bin\lbp.exe -t u2 -r 1 -n 8 -m h -d D:\Study\code\Java\fvaa\db\feature\ -i D:\Study\code\Java\fvaa\db\output\003A35_0.jpg;D:\Study\code\Java\fvaa\db\output\003A38_0.jpg;D:\Study\code\Java\fvaa\db\output\003A47_0.jpg;D:\Study\code\Java\fvaa\db\output\004A30_0.jpg;D:\Study\code\Java\fvaa\db\output\004A37_0.jpg;D:\Study\code\Java\fvaa\db\output\004A40_0.jpg;D:\Study\code\Java\fvaa\db\output\004A48_0.jpg;D:\Study\code\Java\fvaa\db\output\005A48_0.jpg;D:\Study\code\Java\fvaa\db\output\005A49_0.jpg;D:\Study\code\Java\fvaa\db\output\005A52_0.jpg;D:\Study\code\Java\fvaa\db\output\005A61_0.jpg;D:\Study\code\Java\fvaa\db\output\006A24_0.jpg;D:\Study\code\Java\fvaa\db\output\006A28_0.jpg;D:\Study\code\Java\fvaa\db\output\006A31_0.jpg;
+[2012-11-26 21:16:18]	null
+D:\Study\code\GitHub\SmartFace\bin\TrainingSetGeneration.exe -f A -d D:\Study\code\Java\fvaa\db\tsg\ -o TrainingSetGen -i D:\Study\code\Java\fvaa\db\feature\003A35_0.fea;D:\Study\code\Java\fvaa\db\feature\003A38_0.fea;D:\Study\code\Java\fvaa\db\feature\003A47_0.fea;D:\Study\code\Java\fvaa\db\feature\004A30_0.fea;D:\Study\code\Java\fvaa\db\feature\004A37_0.fea;D:\Study\code\Java\fvaa\db\feature\004A40_0.fea;D:\Study\code\Java\fvaa\db\feature\004A48_0.fea;D:\Study\code\Java\fvaa\db\feature\005A48_0.fea;D:\Study\code\Java\fvaa\db\feature\005A49_0.fea;D:\Study\code\Java\fvaa\db\feature\005A52_0.fea;D:\Study\code\Java\fvaa\db\feature\005A61_0.fea;D:\Study\code\Java\fvaa\db\feature\006A24_0.fea;D:\Study\code\Java\fvaa\db\feature\006A28_0.fea;D:\Study\code\Java\fvaa\db\feature\006A31_0.fea;Positive Samples : 18
+Negative Samples : 73
+
+[2012-11-26 21:18:11]	null
+D:\Study\code\GitHub\SmartFace\bin\FeatureCombiner.exe -d D:\Study\code\Java\fvaa\db\sc\ -i D:\Study\code\Java\fvaa\db\tsg\TrainingSetGen.neg.set;D:\Study\code\Java\fvaa\db\tsg\TrainingSetGen.pos.set;D:\Study\code\Java\fvaa\db\sc\/TrainingSetGen.neg.set
+D:\Study\code\Java\fvaa\db\sc\/TrainingSetGen.pos.set
+
+[2012-11-26 21:20:33]	null
+D:\Study\code\GitHub\SmartFace\bin\adaboost_train_wrap.exe -h 30 -p D:\Study\code\Java\fvaa\db\sc\TrainingSetGen.pos.set -n D:\Study\code\Java\fvaa\db\sc\TrainingSetGen.neg.set -o D:\Study\code\Java\fvaa\db\model\LBP_Adaboost

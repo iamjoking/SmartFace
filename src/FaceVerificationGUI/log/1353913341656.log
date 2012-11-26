@@ -1,0 +1,17 @@
+5         
+[2012-11-25 13:28:46]	null
+D:\Study\code\GitHub\SmartFace\src\FaceDetection\Debug\FaceDetection.exe -g -e -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output\ -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG;D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A38.JPG;D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A47.JPG;1
+64 135 317 317
+1
+99 192 289 289
+1
+64 122 280 280
+
+[2012-11-26 13:47:58]	null
+D:\Study\code\GitHub\SmartFace\src\LBP\lbpWrap.exe -null null -null null
+[2012-11-26 13:52:14]	null
+D:\Study\code\GitHub\SmartFace\src\LBP\lbpWrap.exe -t ri -r 1 -n 8 -m h -d D:\Study\code\Java\Java\Project\FVAA\db\output -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG;D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A38.JPG;
+[2012-11-26 14:25:09]	null
+D:\Study\code\GitHub\SmartFace\src\LBP\lbpWrap.exe -t ri -r 1 -n 8 -m h -d D:\Study\code\Java\Java\Project\FVAA\db\output -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG;D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A38.JPG;D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A47.JPG;D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A49.JPG;
+[2012-11-26 15:02:21]	null
+D:\Study\code\GitHub\SmartFace\bin\lbp.exe -s 15:10 -d D:\Study\code\GitHub\SmartFace\src\FaceVerificationGUI\src\ -null null -null null

@@ -82,7 +82,7 @@ for i = 1:num
     H=lbp(img,radius,samples,mapping,mode);
     [pathstr,imgName,ext] = fileparts(imgString);
     output = strcat(outputPath,imgName,extension);
-    dlmwrite(output,H);
+    dlmwrite(output,H,' ');
 end
 
 %fprintf('Done\n'); % To offer an output stream.

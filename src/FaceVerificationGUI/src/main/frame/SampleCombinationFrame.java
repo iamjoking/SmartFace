@@ -125,7 +125,8 @@ public class SampleCombinationFrame extends OptionFrame {
 				frame.setLayout(new BorderLayout());
 				frame.add(jta,BorderLayout.CENTER);
 				frame.setSize(500,200);
-				setLocationRelativeTo(null);
+				frame.setLocationRelativeTo(null);
+				frame.setVisible(true);
 			}
 		});
 		

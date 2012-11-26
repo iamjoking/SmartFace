@@ -13,7 +13,7 @@ import java.io.*;
 
 public class Project {
 	File projFile;
-	Document projDoc;
+	Document projDoc = new Document();
 	public final static String PROJECT_FILE_EXTENSION = ".proj";
 	ArrayList<Section> sections = new ArrayList<Section>();
 	

@@ -57,26 +57,30 @@ public class Section {
 		Set<String> optionsSet = options.keySet();
 		Iterator<String> osIterator = optionsSet.iterator();
 		while(osIterator.hasNext()) {
+			Element optionNode = new Element("option");
 			String name = (String)osIterator.next();
 			Element nameNode = new Element("name");
 			nameNode.addContent(name);
 			Element valueNode = new Element("value");
 			valueNode.addContent(options.get(name));
-			optionsNode.addContent(nameNode);
-			optionsNode.addContent(valueNode);
+			optionNode.addContent(nameNode);
+			optionNode.addContent(valueNode);
+			optionsNode.addContent(optionNode);
 		}
 		
 		Element iooptionsNode = new Element("iooptions");
 		Set<String> ioOptionsSet = ioOptions.keySet();
 		Iterator<String> iosIterator = ioOptionsSet.iterator();
 		while(iosIterator.hasNext()) {
+			Element iooptionNode = new Element("iooption");
 			String name = (String)iosIterator.next();
 			Element nameNode = new Element("name");
 			nameNode.addContent(name);
 			Element valueNode = new Element("value");
-			nameNode.addContent(ioOptions.get(name));			
-			iooptionsNode.addContent(nameNode);
-			iooptionsNode.addContent(valueNode);
+			valueNode.addContent(ioOptions.get(name));			
+			iooptionNode.addContent(nameNode);
+			iooptionNode.addContent(valueNode);
+			iooptionsNode.addContent(iooptionNode);
 		}
 		
 		rootNode.addContent(titleNode);
@@ -154,12 +158,13 @@ public class Section {
 	
 	public void setOption(String option, String value) {
 		value = (value == null ? "" : value);
+//		System.out.println("set option : option = " + option + ", value = " + value);
 		options.put(option,value);
 	}
 	
 	public void setIoOption (String option, String value) {
 		value = (value == null ? "" : value);
-		System.out.println("set io option : option = " + option + ", value = " + value);
+//		System.out.println("set io option : option = " + option + ", value = " + value);
 		ioOptions.put(option,value);
 	}
 	

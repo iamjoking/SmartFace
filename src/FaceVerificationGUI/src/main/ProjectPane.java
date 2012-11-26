@@ -110,7 +110,6 @@ public class ProjectPane extends JPanel{
 	}
 	
 	public ProjectPane(Project project) {
-		setLayout(new GridLayout(project.size(),1));
 		setProject(project);
 	}
 	
@@ -121,19 +120,53 @@ public class ProjectPane extends JPanel{
 	public void setProject(Project project) {
 		removeAll();
 		this.project = project;
-		setLayout(new GridLayout(project.size(),1));
+		setLayout(new BorderLayout());
+		ChainPanel cp = new ChainPanel();
+		JScrollPane jsp = new JScrollPane(cp);
 		for (int i = 0; i < project.size(); i++) {
 			JPanel sectionPanel = sectionPane(project.getSection(i));
-			add(sectionPanel);
+			cp.add(sectionPanel);
 		}
-		repaint();
+		add(jsp, BorderLayout.CENTER);
+		updateUI();
 	}
 	
 	private static JPanel sectionPane(Section section) {
-		JPanel ret = new JPanel();
+		ChainPanel ret = new ChainPanel();
 		ret.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), section.getTitle()));
-		ret.add(new JLabel("Handler : " + section.getHandler()));
-		ret.add(new JLabel("Options : " + section.getCommandString()));
+		JTextField jtfHandler = new JTextField(section.getHandler());
+		jtfHandler.setEditable(false);
+		ret.add(OptionFrame.optionItem("Handler :",jtfHandler));
+		ret.add(new JLabel("IO Options :"));
+		for (int i = 0; i < section.getIoOptionSize(); i++) {
+			JPanel jp = new JPanel(new BorderLayout());
+			JLabel jlName = new JLabel(section.getIoOptionName(i));
+			jlName.setPreferredSize(new Dimension(100,20));
+			jlName.setHorizontalAlignment(SwingConstants.CENTER);
+			jp.add(jlName,BorderLayout.WEST);
+			if (!section.getIoOptionValue(i).equals("")) {
+				JTextArea jtaValue = new JTextArea(section.getIoOptionValue(i));
+				jtaValue.setEditable(false);
+				jtaValue.setLineWrap(true);
+				jp.add(jtaValue,BorderLayout.CENTER);
+			}
+			ret.add(jp);
+		}
+		ret.add(new JLabel("Options : "));
+		for (int i = 0; i < section.getOptionSize(); i++) {
+			JPanel jp = new JPanel(new BorderLayout());
+			JLabel jlName = new JLabel(section.getOptionName(i));
+			jlName.setPreferredSize(new Dimension(100,20));
+			jlName.setHorizontalAlignment(SwingConstants.CENTER);
+			jp.add(jlName,BorderLayout.WEST);
+			if (!section.getOptionValue(i).equals("")) {			
+				JTextArea jtaValue = new JTextArea(section.getOptionValue(i));
+				jtaValue.setEditable(false);
+				jtaValue.setLineWrap(true);
+				jp.add(jtaValue,BorderLayout.CENTER);
+			}
+			ret.add(jp);
+		}		
 		return ret;
 	}
 	
