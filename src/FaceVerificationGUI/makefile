@@ -32,13 +32,17 @@ SOURCE_COMMON_UTIL = \
 	common/util/Project.java \
 
 SOURCE_COMMON_VIEW = \
+	common/view/ChainPanel.java \
 	common/view/FileDirectoryTree.java \
 	common/view/MessagePane.java \
 	common/view/OptionFrame.java \
+	common/view/OptionPane.java \
 
 SOURCE_MAIN = \
 	main/InitialInformation.java \
 	main/NewProjectFrame.java \
+	main/FaceDetectionFrame.java \
+	main/FeatureExtractionFrame.java \
 	main/ProjectPane.java \
 	main/MainFrame.java \
 
@@ -81,12 +85,12 @@ build : $(SOURCE_FILES:.java=.class)
 clean : 
 	rmdir /s /q bin
 	mkdir bin
-	del $(JAR_PKG)
+	del /q *.jar
 
 rebuild : clean build
 
 run :
-	java -cp res/pic/;bin;$(EXT_JAR) $(ENTRY_POINT)
+	java -cp bin;$(EXT_JAR) $(ENTRY_POINT)
 
 jar :
 	jar cvfe $(JAR_PKG) $(ENTRY_POINT) -C bin . res ext

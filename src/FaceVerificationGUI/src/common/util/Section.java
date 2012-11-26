@@ -162,6 +162,20 @@ public class Section {
 		ioOptions.put(option,value);
 	}
 	
+	public void removeOption(String option) {
+		if (option == null)
+			return ;
+		else
+			options.remove(option);
+	}
+
+	public void removeIoOption(String option) {
+		if (option == null)
+			return ;
+		else
+			ioOptions.remove(option);
+	}
+	
 	public void setCovered(boolean value) {
 		int temp = 1;
 		if (value)
@@ -200,7 +214,7 @@ public class Section {
 		return commandString;
 	}
 	
-	public boolean exec() {
+	public boolean build() {
 		if (!isCovered()) return false;
 		LoggedCommand loggedCommand = new LoggedCommand("");
 		try {
@@ -226,7 +240,7 @@ public class Section {
 		Element node = (Element) list.get(0);
 		Section section = new Section(node);
 		section.setCovered(true);
-		section.exec();
+		section.build();
 		System.out.println("the cmd is : \n" + section.getCommandString());
 	}
 }

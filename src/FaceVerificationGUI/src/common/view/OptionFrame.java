@@ -1,10 +1,11 @@
-/** The option pane.
+/** The option frame.
  * @author iamjoking
  */
 
 package common.view;
 
 import javax.swing.*;
+import javax.swing.BorderFactory.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.LayoutManager.*;
@@ -12,6 +13,7 @@ import java.awt.image.*;
 
 public class OptionFrame extends JDialog {
 	JPanel jpBody = new JPanel();
+	JPanel jpBodyContent = new JPanel();
 	JPanel jpBottom = new JPanel();
 	
 	public OptionFrame (String title, String description, Icon icon) {
@@ -46,7 +48,9 @@ public class OptionFrame extends JDialog {
 		jpHeadRight.add(jlIcon, BorderLayout.CENTER);
 		
 		jpBody.setLayout(new BorderLayout());
-		JPanel jpBodyArea = new JPanel(new BorderLayout(20,20));
+		jpBodyContent.setLayout(new BorderLayout());
+		jpBody.add(jpBodyContent, BorderLayout.CENTER);
+		JPanel jpBodyArea = new JPanel(new BorderLayout(10,20));
 		jpBodyArea.add(new JSeparator(),BorderLayout.NORTH);
 		jpBodyArea.add(jpBody,BorderLayout.CENTER);
 		jpBodyArea.add(new JSeparator(),BorderLayout.SOUTH);
@@ -64,7 +68,7 @@ public class OptionFrame extends JDialog {
 		add(jspBody, BorderLayout.CENTER);
 		add(jpBottomArea, BorderLayout.SOUTH);
 		setResizable(false);
-		setMinimumSize(new Dimension(600,200));
+		setSize(600,400);
 		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
@@ -77,18 +81,52 @@ public class OptionFrame extends JDialog {
 		return new ImageIcon(image);
 	}
 	
+	protected void addOptionPane(JComponent jc) {
+		jpBodyContent.add(jc, BorderLayout.NORTH);
+		JPanel temp = new JPanel(new BorderLayout());
+		jpBodyContent.add(temp, BorderLayout.CENTER);
+		jpBodyContent = temp;
+	}
+	
+	protected void addTitledOptionPane(String title, JComponent jc) {
+		JPanel jp = new JPanel(new BorderLayout());
+		jp.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), title));
+		jp.add(jc, BorderLayout.CENTER);
+		addOptionPane(jp);
+	}
+	
 	protected void setBody(JComponent jc) {
 		jpBody.removeAll();
-		jpBody.add(jc, BorderLayout.CENTER);
+		JPanel temp = new JPanel(new BorderLayout());
+		jpBodyContent = temp;
+		jpBody.add(jpBodyContent, BorderLayout.CENTER);
+		addOptionPane(jc);
 	}
 	
 	protected void addButton(JButton jb) {
 		jpBottom.add(jb);
 	}
+
+	public static JPanel optionItem (String name, JComponent jc1) {
+		return optionItem(name, jc1, null);
+	}	
+	
+	public static JPanel optionItem (String name, JComponent jc1, JComponent jc2) {
+		JPanel jpReturn = new JPanel(new BorderLayout(10,10));
+		JLabel jlName = new JLabel(name);
+		jlName.setPreferredSize(new Dimension(120,25));
+		jpReturn.add(jlName, BorderLayout.WEST);
+		jpReturn.add(jc1, BorderLayout.CENTER);
+		if (jc2 != null) {
+			jc2.setPreferredSize(new Dimension(100,25));
+			jpReturn.add(jc2, BorderLayout.EAST);
+		}
+		return jpReturn;
+	}
 	
 	public static void main (String[] args) {
-		OptionFrame frame = new OptionFrame("Create a new project",
-			"Enter your project file's name.", new ImageIcon("res/pic/newaproj.png"));
+		OptionFrame frame = new OptionFrame("Option Frame Title",
+			"Description.", new ImageIcon("res/pic/optionframe.png"));
 		frame.setVisible(true);
 	}
 
