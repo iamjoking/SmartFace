@@ -77,7 +77,6 @@ public class ClassifierTrainingFrame extends OptionFrame {
 			}
 		});
 		
-		JPanel jpOutputFileName = OptionFrame.optionItem("Output file name :", jtfFileName);
 		ioPane.add(jpInputPos); ioPane.add(jpInputNeg); ioPane.add(jpOutput);
 		addTitledOptionPane("IO",ioPane);
 		
@@ -135,7 +134,8 @@ public class ClassifierTrainingFrame extends OptionFrame {
 			}
 		});
 		
-		jtfInput.setEditable(false);
+		jtfInputNeg.setEditable(false);
+		jtfInputPos.setEditable(false);
 		jtfOutput.setEditable(false);
 		pack();
 	}
@@ -152,9 +152,9 @@ public class ClassifierTrainingFrame extends OptionFrame {
 	}
 	
 	private void setSection() {
-		section.setIoOption("i",jtfInput.getText());
-		section.setIoOption("d",jtfOutput.getText() + System.getProperty("file.separator"));
-		section.setIoOption("o",jtfFileName.getText());
+		section.setIoOption("p",jtfInputPos.getText());
+		section.setIoOption("n",jtfInputNeg.getText());
+		section.setIoOption("o",jtfOutput.getText() + System.getProperty("file.separator"));
 
 		if (jcbbProgram.getSelectedIndex() >= 0)
 			section.setHandler(handlers[jcbbProgram.getSelectedIndex()]);

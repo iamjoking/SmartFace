@@ -45,6 +45,7 @@ SOURCE_MAIN = \
 	main/frame/FeatureExtractionFrame.java \
 	main/frame/TrainingSetGenerationFrame.java \
 	main/frame/SampleCombinationFrame.java \
+	main/frame/ClassifierTrainingFrame.java \
 	main/ProjectPane.java \
 	main/MainFrame.java \
 
