@@ -12,8 +12,8 @@ import java.io.RandomAccessFile;
 import java.nio.file.Path;
 import java.util.Date;
 
-/** 日志管理器 使用多文件管理
- * @author Momo
+/** The Log Factory
+ * @author iamjoking
  */
 public class LogFactory {
 	private static String logPath = "log" + System.getProperty("file.separator");
@@ -48,7 +48,7 @@ public class LogFactory {
 	}
 	
 	private static void initialLogFiles(File dir) {
-		String[] logFileList = dir.list(new FilenameFilter(){	// 筛选出符合要求的文件名
+		String[] logFileList = dir.list(new FilenameFilter(){
 		       public boolean accept(File dir, String name){
 		    	   return LogFile.isLogFileName(name);
 		         }
@@ -109,7 +109,7 @@ public class LogFactory {
 		LogFactory.info("Siu-Tung Wang 1--It is a test!\nThank you.");
 		LogFactory.info("Siu-Tung Wang 2--It is a test!\nThank you.");
 		LogFactory.info("Siu-Tung Wang 3--It is a test!\nThank you.");
-		LogFactory.info("Siu-Tung Wang 哈哈哈");
+		LogFactory.info("Siu-Tung Wang Hahaha");
 		System.out.println("end>>>>>>>>>>>>>");
 	}
 

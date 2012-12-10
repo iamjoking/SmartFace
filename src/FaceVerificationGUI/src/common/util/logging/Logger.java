@@ -38,7 +38,7 @@ public class Logger {
 		logger.info("1--It is a test!\nThank you.");
 		logger.info("2--It is a test!\nThank you.");
 		logger.info("3--It is a test!\nThank you.");
-		logger.info("¹þ¹þ¹þ");
+		logger.info("Hahaha");
 		System.out.println("end>>>>>>>>>>>>>");
 	}
 
