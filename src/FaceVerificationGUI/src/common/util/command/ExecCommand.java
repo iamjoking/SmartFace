@@ -46,6 +46,7 @@ public class ExecCommand {
 			String ss = "";
 			while ((ss = br.readLine()) != null) {
 				resultBuffer.append(ss).append(System.getProperty("line.separator"));
+				lineResultHandler(ss);
 			}
 			resultHandler();
 		} finally {
@@ -84,6 +85,7 @@ public class ExecCommand {
 			String ss = "";
 			while ((ss = br.readLine()) != null) {
 				resultBuffer.append(ss).append(System.getProperty("line.separator"));
+				lineResultHandler(ss);
 			}
 			resultHandler();
 		} finally {
@@ -113,6 +115,10 @@ public class ExecCommand {
 		if (resultBuffer == null)
 			return null;
 		return resultBuffer.toString();
+	}
+	
+	protected void lineResultHandler(String lineString) {
+		// Default : Do nothing
 	}
 	
 	protected void resultHandler() {

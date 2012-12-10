@@ -1,4 +1,4 @@
-/** This dialog is used to combine samples.
+/** This dialog is used to set preprocessing options.
  * @author iamjoking
  */
 
@@ -16,18 +16,19 @@ import java.awt.LayoutManager.*;
 import java.awt.image.*;
 import java.io.*;
 
-public class SampleCombinationFrame extends SectionOptionFrame {
-	JTextField jtfInput = new JTextField(30);
-	JTextField jtfOutput = new JTextField(30);
+public class PreprocessFrame extends SectionOptionFrame {
+	JTextField jtfImages;
+	JTextField jtfOutput;
 	
-	public SampleCombinationFrame () {
-		super(SectionOptionFrame.INTER_SECTION, "Sample Combination",
-			"Combine samples", new ImageIcon("res/pic/SampleCombination.png"));
+	public PreprocessFrame () {
+		super(SectionOptionFrame.FIRST_SECTION,"Preprocess",
+			"Carry out some pretreament operations", new ImageIcon("res/pic/Preprocess.png"));
 		
-		ChainPanel ioPane = new ChainPanel();
-		JButton jbInput = new JButton("Browse");
-		JPanel jpInput = OptionFrame.optionItem("Input Features :",jtfInput,jbInput);
-		jbInput.addActionListener(new ActionListener() {
+		JPanel ioPane = new ChainPanel();
+		
+		jtfImages = new JTextField(30);
+		JButton jbImages = new JButton("Browse");
+		jbImages.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser openFileChooser = new JFileChooser(Config.getPresentWorkDirectory());
 				openFileChooser.setMultiSelectionEnabled(true);
@@ -38,13 +39,14 @@ public class SampleCombinationFrame extends SectionOptionFrame {
 						sBuffer.append(files[i].getAbsolutePath() + 
 								System.getProperty("path.separator"));
 					}
-					jtfInput.setText(sBuffer.toString());
+					jtfImages.setText(sBuffer.toString());
 				}
 			}
 		});
+		JPanel jpImages = OptionFrame.optionItem("Input images :",jtfImages,jbImages);
 		
+		jtfOutput = new JTextField(30);
 		JButton jbOutput = new JButton("Browse");
-		JPanel jpOutput = OptionFrame.optionItem("Output path :",jtfOutput,jbOutput);
 		jbOutput.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser openFileChooser = new JFileChooser(Config.getPresentWorkDirectory());
@@ -54,18 +56,17 @@ public class SampleCombinationFrame extends SectionOptionFrame {
 					jtfOutput.setText(openFileChooser.getSelectedFile().getPath());
 			}
 		});
-		
-		ioPane.add(jpInput); ioPane.add(jpOutput);
-		addTitledOptionPane("IO",ioPane);
+		JPanel jpOutput = OptionFrame.optionItem("Output path :",jtfOutput,jbOutput);
 
-//		jtfInput.setEditable(false);
-//		jtfOutput.setEditable(false);
+		ioPane.add(jpImages); ioPane.add(jpOutput);
+		addTitledOptionPane("IO",ioPane);
+		
 		pack();
 		setLocationRelativeTo(null);
 	}
 	
 	public boolean isCovered() {
-		if (jtfInput.getText().equals("") ||
+		if (jtfImages.getText().equals("") ||
 			jtfOutput.getText().equals("") ||
 			!programPane.isCovered()) {
 			section.setCovered(false);
@@ -75,15 +76,15 @@ public class SampleCombinationFrame extends SectionOptionFrame {
 	}
 	
 	public void setSection() {
-		section.setIoOption("i",jtfInput.getText());
+		section.setIoOption("i",jtfImages.getText());
 		section.setIoOption("d",jtfOutput.getText() + System.getProperty("file.separator"));
-		programPane.setSection(getSection());		
+		programPane.setSection(section);
 		section.setCovered(true);
 	}
 	
 	public static void main (String[] args) {
 		LogFactory logFactory = new LogFactory();
-		SampleCombinationFrame frame = new SampleCombinationFrame();
+		PreprocessFrame frame = new PreprocessFrame();
 		frame.setVisible(true);
 	}
 

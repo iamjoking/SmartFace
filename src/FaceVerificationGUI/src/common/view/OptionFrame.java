@@ -15,6 +15,8 @@ public class OptionFrame extends JDialog {
 	JPanel jpBody = new JPanel();
 	JPanel jpBodyContent = new JPanel();
 	JPanel jpBottom = new JPanel();
+	JLabel jlStatus = new JLabel();
+	JPanel jpBottomLeft = new JPanel(new FlowLayout());
 	
 	public OptionFrame (String title, String description, Icon icon) {
 		setModal(true);
@@ -59,9 +61,11 @@ public class OptionFrame extends JDialog {
 		JScrollPane jspBody = new JScrollPane(jpBodyArea);
 		jspBody.setBorder(null);
 		
+		jpBottomLeft.add(jlStatus);
 		jpBottom.setLayout(new FlowLayout(FlowLayout.RIGHT,15,15));
 		JPanel jpBottomArea = new JPanel(new BorderLayout());
 		jpBottomArea.add(jpBottom, BorderLayout.CENTER);
+		jpBottomArea.add(jpBottomLeft, BorderLayout.WEST);
 		
 		setLayout(new BorderLayout());
 		add(jpHead, BorderLayout.NORTH);
@@ -69,7 +73,6 @@ public class OptionFrame extends JDialog {
 		add(jpBottomArea, BorderLayout.SOUTH);
 		setResizable(false);
 		setSize(600,400);
-		setLocationRelativeTo(null);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 	}
 	
@@ -80,19 +83,30 @@ public class OptionFrame extends JDialog {
 		Image image = bimg.getScaledInstance((int)(w*scale), (int)(h*scale), Image.SCALE_SMOOTH);
 		return new ImageIcon(image);
 	}
-	
+
 	protected void addOptionPane(JComponent jc) {
-		jpBodyContent.add(jc, BorderLayout.NORTH);
+		addOptionPane(jc,true);
+	}
+	
+	protected void addOptionPane(JComponent jc, boolean fromHead) {
+		if (fromHead)
+			jpBodyContent.add(jc, BorderLayout.NORTH);
+		else
+			jpBodyContent.add(jc, BorderLayout.SOUTH);
 		JPanel temp = new JPanel(new BorderLayout());
 		jpBodyContent.add(temp, BorderLayout.CENTER);
 		jpBodyContent = temp;
 	}
 	
 	protected void addTitledOptionPane(String title, JComponent jc) {
+		addTitledOptionPane(title,jc,true);
+	}
+	
+	protected void addTitledOptionPane(String title, JComponent jc, boolean fromHead) {
 		JPanel jp = new JPanel(new BorderLayout());
 		jp.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), title));
 		jp.add(jc, BorderLayout.CENTER);
-		addOptionPane(jp);
+		addOptionPane(jp, fromHead);
 	}
 	
 	protected void setBody(JComponent jc) {
@@ -122,6 +136,10 @@ public class OptionFrame extends JDialog {
 			jpReturn.add(jc2, BorderLayout.EAST);
 		}
 		return jpReturn;
+	}
+	
+	public void setStatusString (String content) {
+		jlStatus.setText(content);
 	}
 	
 	public static void main (String[] args) {

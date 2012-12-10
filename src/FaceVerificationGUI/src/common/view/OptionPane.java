@@ -16,8 +16,8 @@ import java.io.*;
 
 public class OptionPane extends JPanel {
 	ArrayList<JPanel> options = new ArrayList<JPanel>();
-	Icon addIcon = new ImageIcon("res/pic/addopt.png");
-	Icon removeIcon = new ImageIcon("res/pic/removeopt.png");
+	Icon addIcon = new ImageIcon("res/pic/AddAnOption.png");
+	Icon removeIcon = new ImageIcon("res/pic/RemoveAnOption.png");
 	JPanel jpBody = new JPanel(new BorderLayout());
 	
 	public OptionPane() {
@@ -31,11 +31,10 @@ public class OptionPane extends JPanel {
 		JLabel jlName = new JLabel("Name");
 		jlName.setPreferredSize(new Dimension(75,25));
 		JLabel jlValue = new JLabel("Value");
-		JLabel jlAddIcon = new JLabel(addIcon);
-		jlAddIcon.setBackground(Color.RED);
+		IconButton jlAddIcon = new IconButton(addIcon);
 		jlAddIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		jlAddIcon.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				addOption();
 			}
 		});
@@ -55,10 +54,10 @@ public class OptionPane extends JPanel {
 		final JPanel newOption = new JPanel(new BorderLayout(10,10));
 		JTextField jtfName = new JTextField(5);
 		JTextField jtfValue = new JTextField(30);
-		JLabel jlRemoveIcon = new JLabel(removeIcon);
+		IconButton jlRemoveIcon = new IconButton(removeIcon);
 		jlRemoveIcon.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		jlRemoveIcon.addMouseListener(new MouseAdapter() {
-			public void mousePressed(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) {
 				removeOption(newOption);
 			}
 		});	

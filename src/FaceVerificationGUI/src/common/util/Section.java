@@ -21,7 +21,7 @@ public class Section {
 	String handler = "";
 	Map<String,String> options = new HashMap<String,String>();
 	Map<String,String> ioOptions = new HashMap<String,String>();
-	
+	String result = "";
 	public Section (String title) {
 		this.title = title;
 	}
@@ -220,12 +220,19 @@ public class Section {
 		return commandString;
 	}
 	
+	public String getWorkDirectory() {
+		if (handler == null)
+			return null;
+		return new File(handler).getParent();
+	}
+	
+	/*
 	public boolean build() {
 		if (!isCovered()) return false;
 		LoggedCommand loggedCommand = new LoggedCommand("");
 		try {
 			loggedCommand.exec(getCommandString(),new File(handler).getParent());
-			//System.out.println("result is " + loggedCommand.getResult());
+			result = loggedCommand.getResult();
 		} catch (IOException e) {
 			System.out.println("error!");
 			e.printStackTrace();
@@ -234,8 +241,13 @@ public class Section {
 		return true;
 	}
 	
+	public String getResult() {
+		return result;
+	}
+	*/
+	
 	/** Test
-	 */
+	 
 	public static void main(String[] args) throws Exception {
 		LogFactory logFactory = new LogFactory();
 		SAXBuilder builder = new SAXBuilder();
@@ -249,4 +261,5 @@ public class Section {
 		section.build();
 		System.out.println("the cmd is : \n" + section.getCommandString());
 	}
+	*/
 }

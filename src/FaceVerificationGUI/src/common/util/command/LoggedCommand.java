@@ -31,6 +31,7 @@ public class LoggedCommand extends ExecCommand {
 	protected void resultHandler() {
 		logger.info(getCommand() + getResult());
 	}
+	
 	/**
 	 * @param args
 	 */

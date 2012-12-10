@@ -12,36 +12,45 @@ JAR_PKG = fvaa.jar
 # Set the entry point of your java app
 ENTRY_POINT = main.MainFrame
 
+#PATH DELIM
+PATH_DELIM=;
 # Set the external jar file path
-EXT_JAR = ext/*;
+EXT_JAR = ext/*$(PATH_DELIM)
 
 # Give the source files of your project. Pay attention to the order of these files.
 SOURCE_FILES = \
 	$(SOURCE_COMMON_UTIL) \
+	main/Config.java \
 	$(SOURCE_COMMON_VIEW) \
 	$(SOURCE_MAIN) \
 
 SOURCE_COMMON_UTIL = \
+	common/util/CanShow.java \
 	common/util/logging/LogFile.java \
 	common/util/logging/LogFactory.java \
 	common/util/logging/Logger.java \
 	common/util/command/ExecCommand.java \
 	common/util/command/LoggedCommand.java \
+	common/util/command/NoticeCommand.java \
 	common/util/FileOperation.java \
+	common/util/Program.java \
 	common/util/Section.java \
 	common/util/Project.java \
 
 SOURCE_COMMON_VIEW = \
+	common/view/IconButton.java \
 	common/view/ChainPanel.java \
+	common/view/LongTextPane.java \
 	common/view/FileDirectoryTree.java \
 	common/view/MessagePane.java \
 	common/view/OptionFrame.java \
 	common/view/OptionPane.java \
+	common/view/ProgramPane.java \
 
 SOURCE_MAIN = \
-	main/InitialInformation.java \
+	main/frame/SectionOptionFrame.java \
 	main/frame/NewProjectFrame.java \
-	main/frame/FaceDetectionFrame.java \
+	main/frame/PreprocessFrame.java \
 	main/frame/FeatureExtractionFrame.java \
 	main/frame/TrainingSetGenerationFrame.java \
 	main/frame/SampleCombinationFrame.java \
@@ -83,7 +92,7 @@ new :
 
 build : $(SOURCE_FILES:.java=.class)
 %.class: %.java
-	$(JAVAC) -cp bin;$(EXT_JAR) -d bin $(JOPTIONS) $<
+	$(JAVAC) -cp bin$(PATH_DELIM)$(EXT_JAR) -d bin $(JOPTIONS) $<
 
 clean : 
 	rmdir /s /q bin
@@ -93,10 +102,10 @@ clean :
 rebuild : clean build
 
 run :
-	java -cp bin;$(EXT_JAR) $(ENTRY_POINT)
+	java -cp bin$(PATH_DELIM)$(EXT_JAR) $(ENTRY_POINT)
 
 jar :
 	jar cvfe $(JAR_PKG) $(ENTRY_POINT) -C bin . res ext
 	
 test :
-	java -cp bin;$(EXT_JAR) $(tar)
+	java -cp bin$(PATH_DELIM)$(EXT_JAR) $(tar)

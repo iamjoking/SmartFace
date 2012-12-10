@@ -15,15 +15,13 @@ import java.util.*;
 import java.io.*;
 
 public class MainFrame extends JFrame {
-	InitialInformation initInfo;
 	JTabbedPane jTabbedPane;
 	MessagePane messagePane;
 	ArrayList<File> openedFile = new ArrayList<File>();
 	public static String VERSION = "1.0";
 	
 	
-	public MainFrame(InitialInformation initInfo) {
-		this.initInfo = initInfo;
+	public MainFrame() {
 		openedFile.add(new File(""));
 		initComponents();
 	}
@@ -53,7 +51,7 @@ public class MainFrame extends JFrame {
 		JMenuItem jMenuItemExit = new JMenuItem("Exit");	// "Exit" Item.
 		jMenuItemExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				initInfo.save();
+				Config.save();
 				System.exit(0);
 			}
 		});
@@ -65,7 +63,7 @@ public class MainFrame extends JFrame {
 		jMenuFile.add(jMenuItemExit);
 		
 		// "Recent Project(s)" sub menu.
-		ArrayList<File> recentFiles = initInfo.getRecentFiles();
+		ArrayList<File> recentFiles = Config.getRecentFiles();
 		for (int i = 0; i < recentFiles.size(); i++) {
 			final File file = recentFiles.get(i);
 			JMenuItem jMenuItem = new JMenuItem(file.getPath());
@@ -116,7 +114,7 @@ public class MainFrame extends JFrame {
 	// Start of the file explorer
 		JPanel jpFileExplorer = new JPanel();
 		jpFileExplorer.setLayout(new BorderLayout());
-		FileDirectoryTree fdt = new FileDirectoryTree(initInfo.getPresentWorkDirectory(), new FileOperation() {
+		FileDirectoryTree fdt = new FileDirectoryTree(Config.getWorkstationDirectory(), new FileOperation() {
 			public boolean open (File file) {
 				openFile(file);
 				return true;
@@ -132,7 +130,7 @@ public class MainFrame extends JFrame {
 		// Draw the start page.
 		JPanel jpStartHere = new JPanel(new BorderLayout());
 		JPanel jpStartPage = new JPanel(new BorderLayout());
-		jpStartPage.add(new JLabel(new ImageIcon("res/pic/logo.png")),BorderLayout.CENTER);
+		jpStartPage.add(new JLabel(new ImageIcon("res/pic/Logo.png")),BorderLayout.CENTER);
 		JScrollPane jspStartPage = new JScrollPane(jpStartPage);
 		jpStartHere.add(jspStartPage,BorderLayout.CENTER);
 		jTabbedPane.addTab("Start Here", jpStartHere);
@@ -173,7 +171,7 @@ public class MainFrame extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		addWindowListener(new WindowAdapter() {
 			public void windowClosing (WindowEvent e) {
-				initInfo.save();
+				Config.save();
 				return ;
 			}
 		});
@@ -194,7 +192,7 @@ public class MainFrame extends JFrame {
 			return -1;
 		}
 		
-		initInfo.addRecentFile(file);
+		Config.addRecentFile(file);
 		if (!openedFile.contains(file)) {			
 			openedFile.add(file);
 			jTabbedPane.addTab(file.getPath(), new ProjectPane(new Project(file)));
@@ -213,8 +211,15 @@ public class MainFrame extends JFrame {
 	public int newFile() {
 		messagePane.append("new a file");
 		ProjectPane newProjPane = new ProjectPane();
-		openFile(newProjPane.getProject().getProjectFile());
-		return 0;
+		Project newProj = newProjPane.getProject();
+		
+		if (newProj != null) {
+			File projFile = newProj.getProjectFile();
+			Config.addRecentFile(projFile);
+			return 0;
+		}
+		else
+			return -1;
 	}
 	
 	
@@ -245,14 +250,11 @@ public class MainFrame extends JFrame {
 	}
 
 	/** Initialize.
-	 * Return 0 if everything is OK;
-	 * Return an error code when it comes with problems. 
+	 * Set the GUI style.
 	 */
-	private static InitialInformation initial() {
+	private static void initial() {
 		setGUI();
 		LogFactory logFactory = new LogFactory();
-		InitialInformation ret = new InitialInformation();
-		return ret;
 	}
 	
 	/**
@@ -260,26 +262,26 @@ public class MainFrame extends JFrame {
 	 */
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		final InitialInformation initInfo = initial();
-		int errorCode = initInfo.check();
+		initial();
+		int errorCode = Config.check();
 		if (errorCode != 0) {
 			JOptionPane.showMessageDialog(null,
 					"Initial error!\n" +
 					"[Error Code] : " + errorCode +
-					"[Description]: " + initInfo.getErrorString());
+					"[Description]: " + Config.getErrorString());
 			return ;
 		}
 		
 		java.awt.EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				new MainFrame(initInfo).setVisible(true);
+				new MainFrame().setVisible(true);
 			}
 		});
 	}
 	
 	private class OpenActionListener implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			JFileChooser openFileChooser = new JFileChooser(initInfo.getPresentWorkDirectory());
+			JFileChooser openFileChooser = new JFileChooser(Config.getWorkstationDirectory());
 			openFileChooser.setAcceptAllFileFilterUsed(false);
 			openFileChooser.addChoosableFileFilter(new javax.swing.filechooser.FileFilter() {
 				public boolean accept(File f) {

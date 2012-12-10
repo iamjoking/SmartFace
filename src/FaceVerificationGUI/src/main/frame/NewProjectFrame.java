@@ -21,7 +21,7 @@ public class NewProjectFrame extends OptionFrame {
 	
 	public NewProjectFrame () {
 		super("Create a new project","Enter your project file's name.",
-			new ImageIcon("res/pic/newaproj.png"));
+			new ImageIcon("res/pic/NewProject.png"));
 		
 		int lineHeight = 25;
 		JPanel jpBody = new JPanel(new GridLayout(0,1,10,10));
@@ -32,7 +32,7 @@ public class NewProjectFrame extends OptionFrame {
 		JButton jbBrowse = new JButton("Browse");
 		jbBrowse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser openFileChooser = new JFileChooser(InitialInformation.getCwd());
+				JFileChooser openFileChooser = new JFileChooser(Config.getWorkstationDirectory());
 				openFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				
 				if (openFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
@@ -78,6 +78,7 @@ public class NewProjectFrame extends OptionFrame {
 		});
 		addButton(jbCancel);
 		pack();
+		setLocationRelativeTo(null);
 	}
 	
 	public String getProjectPath() {
