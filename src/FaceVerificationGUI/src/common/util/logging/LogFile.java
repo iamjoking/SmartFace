@@ -13,7 +13,7 @@ import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
 import java.util.Date;
 
-/** 日志文件 类
+/** The Log File
  * @author Momo
  *
  */
@@ -81,7 +81,6 @@ public class LogFile {
 	}
 	
 	private void appandContent (String content) {
-		// 写入文件末尾
 		FileOutputStream fos;
 		try {
 			fos = new FileOutputStream(file,true);
@@ -120,16 +119,16 @@ public class LogFile {
 		if (file == null)
 			return sBuffer;
 		
-        String line;        // 用来保存每行读取的内容
+        String line;
         BufferedReader reader;
 		try {
 			reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
-	        line = reader.readLine();       // 跳过第一行
-	        line = reader.readLine();       // 读取第一行
-	        while (line != null) {          // 如果 line 为空说明读完了
-	        	sBuffer.append(line);        // 将读到的内容添加到 sBuffer 中
-	        	sBuffer.append(System.getProperty("line.separator"));        // 添加换行符
-	            line = reader.readLine();   // 读取下一行
+	        line = reader.readLine(); 
+	        line = reader.readLine();
+	        while (line != null) {
+	        	sBuffer.append(line);
+	        	sBuffer.append(System.getProperty("line.separator"));
+	            line = reader.readLine();
 	        }
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
