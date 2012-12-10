@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<project>
+	<section>
+		<title>Face Detection</title>
+		<status>3</status>
+		<handler>D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe</handler>
+		<options>
+			<option> <name>g</name> </option>
+			<option> <name>e</name> </option>
+			<option> <name>x</name> <value>jpg</value> </option>
+		</options>
+		<iooptions>
+			<iooption> <name>i</name> <value>D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG</value> </iooption>
+			<iooption> <name>d</name> <value>D:\Study\code\Java\Java\Project\FVAA\db\output\</value> </iooption>
+		</iooptions>
+	</section>
+	<section>
+		<title>Training Set Generation</title>
+		<status>3</status>
+		<handler>D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe</handler>
+		<options>
+			<option> <name>g</name> </option>
+			<option> <name>e</name> </option>
+			<option> <name>x</name> <value>jpg</value> </option>
+		</options>
+		<iooptions>
+			<iooption> <name>i</name> <value>D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG</value> </iooption>
+			<iooption> <name>d</name> <value>D:\Study\code\Java\Java\Project\FVAA\db\output\</value> </iooption>
+		</iooptions>
+	</section>
+</project>

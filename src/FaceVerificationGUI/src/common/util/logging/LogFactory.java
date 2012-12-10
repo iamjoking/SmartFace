@@ -16,7 +16,7 @@ import java.util.Date;
  * @author Momo
  */
 public class LogFactory {
-	private static String logPath = "LogFile" + System.getProperty("file.separator");
+	private static String logPath = "log" + System.getProperty("file.separator");
 	private static int logFileAmount = 2;
 	private static int logsPerFile = 10;
 	

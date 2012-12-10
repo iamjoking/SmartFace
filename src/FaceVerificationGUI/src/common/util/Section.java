@@ -6,27 +6,146 @@ package common.util;
 
 import common.util.logging.*;
 import common.util.command.*;
+
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+
 import java.util.*;
 import java.io.*;
 
 public class Section {
-	boolean done = false;
-	boolean built = false;
-	String title;
-	String handler = null;
+	int status = 0;		// MSB [built,covered] LSB
+	String title = "";
+	String handler = "";
 	Map<String,String> options = new HashMap<String,String>();
 	Map<String,String> ioOptions = new HashMap<String,String>();
-	
+	String result = "";
 	public Section (String title) {
 		this.title = title;
 	}
 	
-	public boolean isDone() {
-		return done && handler != null;
+	public Section (Element e) {
+		status = Integer.parseInt(e.getChildText("status"));
+		title = e.getChildText("title");
+		handler = e.getChildText("handler");
+		List optionsList = e.getChild("options").getChildren("option");
+		for (int i = 0; i < optionsList.size(); i++) {
+			Element node = (Element) optionsList.get(i);
+			setOption(node.getChildText("name"),node.getChildText("value"));
+		}
+		
+		List iooptionsList = e.getChild("iooptions").getChildren("iooption");
+		for (int i = 0; i < iooptionsList.size(); i++) {
+			Element node = (Element) iooptionsList.get(i);
+			setIoOption(node.getChildText("name"),node.getChildText("value"));
+		}		
+	}
+	
+	public Element getElement() {
+		Element rootNode = new Element("section");
+		
+		Element titleNode = new Element("title");
+		titleNode.addContent(title);
+		Element statusNode = new Element("status");
+		statusNode.addContent(String.valueOf(status));
+		Element handlerNode = new Element("handler");
+		handlerNode.addContent(handler);
+		
+		Element optionsNode = new Element("options");
+		Set<String> optionsSet = options.keySet();
+		Iterator<String> osIterator = optionsSet.iterator();
+		while(osIterator.hasNext()) {
+			Element optionNode = new Element("option");
+			String name = (String)osIterator.next();
+			Element nameNode = new Element("name");
+			nameNode.addContent(name);
+			Element valueNode = new Element("value");
+			valueNode.addContent(options.get(name));
+			optionNode.addContent(nameNode);
+			optionNode.addContent(valueNode);
+			optionsNode.addContent(optionNode);
+		}
+		
+		Element iooptionsNode = new Element("iooptions");
+		Set<String> ioOptionsSet = ioOptions.keySet();
+		Iterator<String> iosIterator = ioOptionsSet.iterator();
+		while(iosIterator.hasNext()) {
+			Element iooptionNode = new Element("iooption");
+			String name = (String)iosIterator.next();
+			Element nameNode = new Element("name");
+			nameNode.addContent(name);
+			Element valueNode = new Element("value");
+			valueNode.addContent(ioOptions.get(name));			
+			iooptionNode.addContent(nameNode);
+			iooptionNode.addContent(valueNode);
+			iooptionsNode.addContent(iooptionNode);
+		}
+		
+		rootNode.addContent(titleNode);
+		rootNode.addContent(statusNode);
+		rootNode.addContent(handlerNode);
+		rootNode.addContent(optionsNode);
+		rootNode.addContent(iooptionsNode);		
+		
+		return rootNode;
+	}
+	
+	public boolean isCovered() {
+		return status % 2 == 1;
 	}
 	
 	public boolean isBuilt() {
-		return built;
+		return (status >> 1) % 2 == 1;
+	}
+	
+	public String getTitle() {
+		return title;
+	}
+	
+	public String getHandler() {
+		return handler;
+	}
+	
+	public int getOptionSize() {
+		return options.size();
+	}
+	
+	public String getOptionName(int index) {
+		if (index >= options.size() || index < 0)
+			return null;
+		Set<String> optionsSet = options.keySet();
+		Iterator<String> osIterator = optionsSet.iterator();
+		while (index-- > 0) osIterator.next();
+		
+		return (String)osIterator.next();
+	}
+	
+	public String getOptionValue(int index) {
+		String name = getOptionName(index);
+		if (name == null) return null;
+		return options.get(name);
+	}
+	
+	public int getIoOptionSize() {
+		return ioOptions.size();
+	}
+	
+	public String getIoOptionName(int index) {
+		if (index >= ioOptions.size() || index < 0)
+			return null;
+		Set<String> ioOptionsSet = ioOptions.keySet();
+		Iterator<String> iosIterator = ioOptionsSet.iterator();
+		while (index-- > 0) iosIterator.next();
+		
+		return (String)iosIterator.next();	
+	}
+	
+	public String getIoOptionValue(int index) {
+		String name = getIoOptionName(index);
+		if (name == null) return null;
+		return ioOptions.get(name);	
 	}
 	
 	public boolean setHandler (String string) {
@@ -38,66 +157,109 @@ public class Section {
 	}
 	
 	public void setOption(String option, String value) {
+		value = (value == null ? "" : value);
+//		System.out.println("set option : option = " + option + ", value = " + value);
 		options.put(option,value);
 	}
 	
 	public void setIoOption (String option, String value) {
+		value = (value == null ? "" : value);
+//		System.out.println("set io option : option = " + option + ", value = " + value);
 		ioOptions.put(option,value);
 	}
 	
-	public void setDone(boolean value) {
-		done = value;
+	public void removeOption(String option) {
+		if (option == null)
+			return ;
+		else
+			options.remove(option);
+	}
+
+	public void removeIoOption(String option) {
+		if (option == null)
+			return ;
+		else
+			ioOptions.remove(option);
+	}
+	
+	public void setCovered(boolean value) {
+		int temp = 1;
+		if (value)
+			status = status | temp;
+		else
+			status = status & (~temp);
+	}
+	
+	private void setBuilt(boolean value) {
+		int temp = 1 << 1;
+		if (value)
+			status = status | temp;
+		else
+			status = status & (~temp);
 	}
 	
 	public String getCommandString() {
 		String commandString  = handler;
-		String option;
-		Set<String> optionsSet = options.keySet();
-		Iterator<String> osIterator = optionsSet.iterator();
-		Set<String> ioOptionsSet = ioOptions.keySet();
-		Iterator<String> iosIterator = ioOptionsSet.iterator();
-		while (osIterator.hasNext()) {
-			option = (String)osIterator.next();
-			commandString += " -" + option + " " + options.get(option);
+		String value;
+		int size = getOptionSize();
+		for (int i = 0; i < size; i++) {
+			commandString += " -" + getOptionName(i);
+			value = getOptionValue(i);
+			if (value != "")
+				commandString += " " + value;
 		}
 		
-		while (iosIterator.hasNext()) {
-			option = (String)iosIterator.next();
-			commandString += " -" + option + " " + ioOptions.get(option);
+		size = getIoOptionSize();
+		for (int i = 0; i < size; i++) {
+			commandString += " -" + getIoOptionName(i);
+			value = getIoOptionValue(i);
+			if (value != "")
+				commandString += " " + value;
 		}
-		
+
 		return commandString;
 	}
 	
-	public boolean exec() {
-		if (!isDone()) return false;
-		LoggedCommand loggedCommand = new LoggedCommand("Test");
+	public String getWorkDirectory() {
+		if (handler == null)
+			return null;
+		return new File(handler).getParent();
+	}
+	
+	/*
+	public boolean build() {
+		if (!isCovered()) return false;
+		LoggedCommand loggedCommand = new LoggedCommand("");
 		try {
-			loggedCommand.exec(getCommandString());
-			System.out.println("result is " + loggedCommand.getResult());
+			loggedCommand.exec(getCommandString(),new File(handler).getParent());
+			result = loggedCommand.getResult();
 		} catch (IOException e) {
 			System.out.println("error!");
 			e.printStackTrace();
 		}
-		built = true;
+		setBuilt(true);
 		return true;
 	}
 	
-	/** Test
-	 */
-	public static void main(String[] args) {
-		LogFactory logFactory = new LogFactory();
-		Section section = new Section("Face Detection");
-		
-		section.setHandler("D:\\Study\\code\\Java\\Java\\Project\\FVAA\\bin\\C++\\bin\\FaceDetection\\FaceDetection.exe");
-		section.setOption("x","jpg");
-		section.setOption("g","");
-		section.setOption("e","");
-		section.setIoOption("n","123");
-		section.setIoOption("i","D:\\Study\\code\\Java\\Java\\Project\\FVAA\\db\\FG-NET\\003A35.JPG");
-		section.setIoOption("d","D:\\Study\\code\\Java\\Java\\Project\\FVAA\\db\\output");
-		System.out.println(section.getCommandString());
-		section.setDone(true);
-		section.exec();
+	public String getResult() {
+		return result;
 	}
+	*/
+	
+	/** Test
+	 
+	public static void main(String[] args) throws Exception {
+		LogFactory logFactory = new LogFactory();
+		SAXBuilder builder = new SAXBuilder();
+		File xmlFile = new File("fvaa.proj");
+		Document document = (Document) builder.build(xmlFile);
+		Element rootNode = document.getRootElement();
+		List list = rootNode.getChildren("section");
+		Element node = (Element) list.get(0);
+		Section section = new Section(node);
+		section.setCovered(true);
+		section.build();
+		System.out.println("the cmd is : \n" + section.getCommandString());
+	}
+	*/
 }

@@ -1,0 +1,39 @@
+10        
+[2012-11-13 17:26:24]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG0
+
+[2012-11-13 17:29:40]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output -n 123 -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG0
+
+[2012-11-18 14:11:39]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output -n 123 -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG0
+
+[2012-11-18 14:13:08]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output -n 123 -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG0
+
+[2012-11-18 14:31:08]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output -n 123 -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG1
+64 135 317 317
+
+[2012-11-18 14:32:14]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output\ -n 123 -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG1
+64 135 317 317
+
+[2012-11-20 19:47:30]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g null -e null -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output\ -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPGERR: unknown option:null
+ERR: unknown option:null
+1
+64 135 317 317
+
+[2012-11-20 19:49:02]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g null -e null -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output\ -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPGERR: unknown option:null
+ERR: unknown option:null
+1
+64 135 317 317
+
+[2012-11-20 19:50:52]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output\ -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG1
+64 135 317 317
+
+[2012-11-20 19:53:43]	null
+D:\Study\code\Java\Java\Project\FVAA\bin\C++\bin\FaceDetection\FaceDetection.exe -g  -e  -x jpg -d D:\Study\code\Java\Java\Project\FVAA\db\output\ -i D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A35.JPG;D:\Study\code\Java\Java\Project\FVAA\db\FG-NET\003A38

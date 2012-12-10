@@ -1,4 +1,4 @@
-%LBPis a wrap of lbp method. It Generates a feature file or feature 
+%LBPWRAP is a wrap of lbp method. It Generates a feature file or feature 
 %   files of the local binary pattern image or LBP histogram of an image or 
 %   images.
 % 
@@ -24,7 +24,7 @@
 %                   'h' or 'hist'  to get a histogram of LBP codes
 %                   'nh'           to get a normalized histogram
 %   Example:
-%           lbp input\1.JPG;input\2.JPG output\ 1 8 ri h
+%           lbpWrap -i 'input\1.JPG;input\2.JPG' -d 'output\' -r 1 -s 8 -t ri -m
+%                   h
 %       Now 'output\1.fea' and 'output\2.fea' contain the rotation-invariant
 %       uniform LBP histogram for 1.JPG and 2.JPG.
-%

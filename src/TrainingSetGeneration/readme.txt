@@ -1,5 +1,5 @@
-[trsGen] Training Set Generator.
-Usage    : trsGen -i inputFeatureFiles -d outputDirectoryPath -o outputFileName
+[TrainingSetGeneration] Training Set Generator.
+Usage    : TrainingSetGeneration -i inputFeatureFiles -d outputDirectoryPath -o outputFileName
            [-s [positiveSamples]:[negativeSamples]] [-f identifierEndFlag]
 
 Attension: 1.The "inputFeatureFiles" should be separated with ";".
@@ -7,13 +7,14 @@ Attension: 1.The "inputFeatureFiles" should be separated with ";".
              combinations will be given. So does "negativeSamples".
            3.The default value of "identifierEndFlag" is "_".
 
-Example  : trsGen -i A_1.fea;A_2.fea;B_1.fea;B_2.fea -d output\ -o samples
+Example  : TrainingSetGeneration -i A_1.fea;A_2.fea;B_1.fea;B_2.fea -d output\ -o samples
            -s 2:2 -f _
 		   
 
-[ssGen] Single Sample Generator.
-Usage    : ssGen -i inputFeatureFiles -o outputFileName
+[FeatureCombiner] Feature File Combiner.
+	This program will combine features from feature file to produce training set files used by trainer.
+Usage    : FeatureCombiner -i inputTrainingSetFile -d outputTrainingSetFeatureFileName Directory
 
-Attension: The two "inputFeatureFiles" should be separated with ";".
+Attention: The two "inputFeatureFiles" should be separated with ";".
 
-Example  : ssGen -i A_1.fea;A_2.fea -o output\sample.sam
+Example  : FeatureCombiner -i sample.pos.set -o output/

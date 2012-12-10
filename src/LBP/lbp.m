@@ -46,6 +46,10 @@ function result = lbp(varargin) % image,radius,neighbors,mapping,mode)
 % Check number of input arguments.
 error(nargchk(1,5,nargin));
 
+if (nargin == 0)
+	error('Input arguments');
+end
+
 image=varargin{1};
 d_image=double(image);
 

@@ -4,11 +4,12 @@
 
 package common.view;
 
+import common.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.LayoutManager.*;
 
-public class MessagePane extends JPanel {
+public class MessagePane extends JPanel implements CanShow{
 	String titleString;
 	Color titleColor;
 	Color titleBackground;
@@ -50,10 +51,12 @@ public class MessagePane extends JPanel {
 	
 	public void append (String content) {
 		messageArea.append(content + System.getProperty("line.separator"));
+		messageArea.paintImmediately(messageArea.getBounds());
 	}
 	
 	public void clear() {
 		messageArea.setText("");
+		messageArea.paintImmediately(messageArea.getBounds());
 	}
 	
 	public static void main (String[] args) {

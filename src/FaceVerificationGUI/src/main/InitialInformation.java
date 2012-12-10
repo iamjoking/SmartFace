@@ -8,7 +8,7 @@ import common.util.Project;
 import java.io.*;
 import java.util.*;
 
-public  class InitialInformation {
+public class InitialInformation {
 	final static int MAXIMUM_RECENT_FILES = 8;
 	final static String INITIAL_FILE_PATH = "fvaa.ini";
 	int errorCode = 0;
@@ -107,5 +107,9 @@ public  class InitialInformation {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	public static File getCwd() {
+		return new InitialInformation().getPresentWorkDirectory();
 	}
 }
