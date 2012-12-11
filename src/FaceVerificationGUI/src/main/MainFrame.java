@@ -229,7 +229,8 @@ public class MainFrame extends JFrame {
 	 */
 	private static void setGUI() {
 		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		//	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		org.jb2011.lnf.beautyeye.BeautyEyeLNFHelper.launchBeautyEyeLNF();
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -241,6 +242,8 @@ public class MainFrame extends JFrame {
 			e.printStackTrace();
 		} catch (UnsupportedLookAndFeelException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
