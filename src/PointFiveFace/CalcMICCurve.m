@@ -1,5 +1,7 @@
-%获得光照条件比较好的那半边脸
-function [X1_MIC,X2_MIC,MIC_d] = GetBetterIllumisionHalf(img)
+%计算MIC曲线
+%I1代表右半边脸的镜像
+%I2代表左半边脸
+function [X1_MIC,X2_MIC,MIC_d] = CalcMICCurve(img)
 	reverseimg = img(:,size(img,2):-1:1);
 	I1 = reverseimg(:,round(0.5*size(img,2) + 1):size(img,2));
 	I2 = img(:,round(0.5*size(img,2)+1):size(img,2));
