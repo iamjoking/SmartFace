@@ -13,7 +13,7 @@ JAR_PKG = fvaa.jar
 ENTRY_POINT = main.MainFrame
 
 #PATH DELIM
-PATH_DELIM=;
+PATH_DELIM=:
 # Set the external jar file path
 EXT_JAR = ext/*$(PATH_DELIM)
 
@@ -62,7 +62,7 @@ SOURCE_MAIN = \
 JAVAC = javac
 
 # Set the compiler's options
-JOPTIONS =
+JOPTIONS =-encoding GB18030
 
 # Usage :
 # make new      : New a project.
