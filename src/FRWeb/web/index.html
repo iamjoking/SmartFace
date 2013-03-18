@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+
+<script>
+    //WebSocket
+    var ws=null;
+    
+  function handleFileSelect() {
+
+  	var f = document.getElementById('photo').files[0];
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var picbase64 = e.target.result.toString();
+        
+          //Sent it to Server  
+          wsconnect();
+          if(ws != null){
+            ws.onopen = function () {
+                console.log('Info: WebSocket connection opened.');
+                console.log(e.target.result);
+                ws.send(picbase64);
+            };
+            
+          }
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+
+  function wsconnect() {
+            var target = "ws://localhost:8080/FRWeb/FaceRecognition"
+            
+            if ('WebSocket' in window) {
+                ws = new WebSocket(target);
+            } else if ('MozWebSocket' in window) {
+                ws = new MozWebSocket(target);
+            } else {
+                alert('WebSocket is not supported by this browser.');
+                return;
+            }
+           
+            //When Receive Message
+            ws.onmessage = function (event) {
+                console.log('Received: ' + event.data);
+                document.getElementById("test").innerHTML = event.data;
+            };
+            ws.onclose = function () {
+                console.log('Info: WebSocket connection closed.');
+            };
+        }
+
+</script>
+
+<title>Insert title here</title>
+</head>
+<body>
+	<form>
+        <input type="file" id="photo" accept="image/jpeg,image/png,image/gif" name="photopath" onChange="handleFileSelect();" />
+	</form>
+
+	<div id="test"></div>
+
+
+</body>
+
+</html>
