@@ -104,7 +104,7 @@ var options = {
 handler = $('#tiles li');
 handler.wookmark(options);
             
-                </script>
+      </script>
         
 	</head>
 	<body>
