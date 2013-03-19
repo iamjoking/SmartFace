@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<style>
+  .thumb {
+    height: 75px;
+    border: 1px solid #000;
+    margin: 10px 5px 0 0;
+  }
+</style>
+
+<script>
+    //WebSocket
+    var ws=null;
+    
+  function handleFileSelect() {
+
+  	var f = document.getElementById('fileinput').files[0];
+
+      var reader = new FileReader();
+
+      // Closure to capture the file information.
+      reader.onload = (function(theFile) {
+        return function(e) {
+          // Render thumbnail.
+          var picbase64 = e.target.result.toString();
+          //Display the origin file
+          var origindiv = document.getElementById("originpic");
+          origindiv.innerHTML = ['<img src="',picbase64,'" />'].join('');
+          origindiv.style.display="block";
+          var resultdiv = document.getElementById("result");
+          resultdiv.innerHTML = "detecting...";
+          
+          //Sent it to Server  
+          wsconnect();
+          if(ws !== null){
+            ws.onopen = function () {
+                console.log('Info: WebSocket connection opened.');
+                console.log(e.target.result);
+                ws.send(picbase64);
+            };
+            
+          }
+        };
+      })(f);
+
+      // Read in the image file as a data URL.
+      reader.readAsDataURL(f);
+    }
+
+  function wsconnect() {
+            var target = "ws://localhost:8080/FRWeb/FaceRecognition";
+            
+            if ('WebSocket' in window) {
+                ws = new WebSocket(target);
+            } else if ('MozWebSocket' in window) {
+                ws = new MozWebSocket(target);
+            } else {
+                alert('WebSocket is not supported by this browser.');
+                return;
+            }
+           
+            //When Receive Message
+            ws.onmessage = function (event) {
+                console.log('Received: ' + event.data);
+                document.getElementById("result").innerHTML = event.data;
+                document.getElementById("result").style.display="block";
+                
+            };
+            ws.onclose = function () {
+                console.log('Info: WebSocket connection closed.');
+            };
+        }
+
+</script>
+
+<title>Face Detection Demo</title>
+</head>
+<body>
+    <a href="/FRWeb/database.jsp">See Database</a><br>
+    <h1>Upload a face:</h1>
+	<form>
+        <input type="file" id="fileinput" accept="image/jpeg,image/png,image/gif" name="photopath" onChange="handleFileSelect();" />
+	</form>
+
+	<div>
+            <h2>You have selected:</h2>
+            <div id="originpic" style="border:2px dashed;display:none;"></div>
+        </div>
+    <div>
+        <h2>Result:</h2>
+        <div id ="result" style="border: 2px dashed;display: none;"></div>
+    </div>
+
+
+</body>
+
+</html>
